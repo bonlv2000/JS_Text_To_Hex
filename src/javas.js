@@ -69,13 +69,36 @@ function findText(listSave) {
 
   for (let i = 0; i <= textEng.length - 1; i++) {
     listSave.forEach((element, index) => {
-      if (hexToText(element.slice(4)) == textEng[i]) {
-        listSave[index] =
-          bytecount_to_String(lengthInUtf8Bytes(textVi[i])) +
-          textToHext(textVi[i]);
-        i++;
-      } else {
-        listSave[index] = element;
+      var numberzero = (element.match(/^0+/) || [""])[0].length;
+      console.log(numberzero);
+      try {
+        element = element.replace(/^0+/, "");
+        if (hexToText(element.slice(4)) == textEng[i]) {
+          var result =
+            bytecount_to_String(lengthInUtf8Bytes(textVi[i])) +
+            textToHext(textVi[i]);
+          listSave[index] = result.padStart(result.length + numberzero, "0");
+        } else {
+          var result = element;
+          listSave[index] = result.padStart(result.length + numberzero, "0");
+        }
+      } catch (error) {
+        element = "0" + element.replace(/^0+/, "");
+        if (hexToText(element.slice(4)) == textEng[i]) {
+          var result =
+            bytecount_to_String(lengthInUtf8Bytes(textVi[i])) +
+            textToHext(textVi[i]);
+          listSave[index] = result.padStart(
+            result.length + numberzero - 1,
+            "0"
+          );
+        } else {
+          var result = element;
+          listSave[index] = result.padStart(
+            result.length + numberzero - 1,
+            "0"
+          );
+        }
       }
     });
   }
@@ -87,6 +110,7 @@ function findbyteCount(text) {
   var textok = "";
   var i = 0;
   var listSave = [];
+
   while (i <= text.length - 1) {
     var textresult = text[i] + text[i + 1];
     if (textresult == "00") {
@@ -96,16 +120,19 @@ function findbyteCount(text) {
       var decimal = HexToDecimal(textresult);
       var last = findLast(i, decimal);
 
-      listSave.push(text.slice(i, i + 4 + decimal * 2));
-      $("#textlast").val((textok + findText(listSave)).replaceAll(",", ""));
+      listSave.push(textok + text.slice(i, i + 4 + decimal * 2));
+      //listSave[i] = textok + listSave[i];
       textok = "";
       i = 0;
       i += last;
     }
   }
+
+  $("#textlast").val(findText(listSave).join(""));
 }
 
 function convertTextToHex() {
   var text = $("#textfirst").val();
+  $("#textlast").val("");
   findbyteCount(text);
 }
