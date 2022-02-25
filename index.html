@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+  </head>
+  <body>
+    <div class="container pt-5">
+      <div class="row">
+        <div class="col-6">
+          <div class="mb-3">
+            <label for="inputEng" class="form-label">Input English:</label>
+            <textarea class="form-control" id="inputEng" rows="7"></textarea>
+          </div>
+          <div class="mb-3">
+            <label for="inputVietN" class="form-label"
+              >Input Trans VietNam:</label
+            >
+            <textarea class="form-control" id="inputVietN" rows="7"></textarea>
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="mb-3">
+            <label for="textfirst" class="form-label">Input Hex:</label>
+            <textarea class="form-control" id="textfirst" rows="7"></textarea>
+          </div>
+          <div class="mb-3">
+            <label for="textlast" class="form-label">Output Hex Trans:</label>
+            <textarea
+              class="form-control"
+              id="textlast"
+              rows="7"
+              disabled
+            ></textarea>
+          </div>
+        </div>
+      </div>
+
+      <button
+        type="button"
+        class="btn btn-primary"
+        onclick="convertTextToHex()"
+      >
+        Run
+      </button>
+    </div>
+  </body>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="src/javas.js"></script>
+  <script src="src/FileSaver.js"></script>
+</html>
